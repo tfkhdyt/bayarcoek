@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
 const algorithm = 'aes-256-ctr';
-let key = 'N7wKWb5434FLD';
+let key = process.env.BAYARCOEK_KEY || 'N7wKWb5434FLD';
 key = crypto
   .createHash('sha256')
   .update(String(key))
@@ -14,7 +14,7 @@ if (!['encrypt', 'decrypt'].includes(mode)) {
   console.log(`${mode} apaan bro? Gk paham sy`);
   process.exit(1);
 }
-const extension = process.argv[3] || 'bayarcoek';
+const extension = process.argv[3] || process.env.BAYARCOEK_EXT || 'bayarcoek';
 let count = 0;
 const _path = __dirname + '/';
 
