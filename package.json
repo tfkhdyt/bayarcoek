@@ -1,9 +1,10 @@
 {
   "name": "bayarcoek",
   "version": "1.0.0",
+  "description": "Sebuah script node.js untuk meng-encrypt source code project client kamu yang gak mau bayar",
   "main": "bayarcoek.js",
-  "repository": "git@github.com:tfkhdyt/encrypt.git",
-  "author": "tfkhdyt <ta142fa@gmail.com>",
+  "repository": "git@github.com:tfkhdyt/bayarcoek.git",
+  "author": "tfkhdyt <tfkhdyt@pm.me>",
   "license": "MIT",
   "devDependencies": {
     "eslint": "^8.2.0"
