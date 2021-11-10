@@ -13,17 +13,23 @@ Sebuah script node.js untuk meng-encrypt source code project client kamu yang ga
 </p>
 
 ## Requirements
-- Git
 - Node.js
+- NPM / Yarn
 
 ## Warning
 Gunakan script ini dengan hati-hati.
-Secara default, script ini akan meng-encrypt semua file dan folder yang berada dalam satu folder dengan file `bayarcoek.js`.
+Secara default, script ini akan meng-encrypt semua file dan folder di mana anda menjalankan command `bayarcoek` (Current Working Directory).
 Jangan sampai kalian tanpa sengaja meng-encrypt seluruh storage kalian.
 Saya tidak bertanggung jawab atas segala kesalahan yang terjadi karena kecerobohan user.
 
 ## Installation
-1. Clone repository ini
+1. Instal package
+  - Global (bisa dijalankan di mana saja, tapi tidak direkomendasikan karena sangat berisiko)
+    - NPM 
+      ```Bash
+      
+      ```
+  - Local
 ```Bash
 git clone https://github.com/tfkhdyt/bayarcoek.git
 ```

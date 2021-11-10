@@ -9,6 +9,8 @@ key = crypto
   .update(String(key))
   .digest('base64')
   .substr(0, 32);
+  
+const whitelist = ['bayarcoek.js', 'node_modules'];
 
 const mode = process.argv[2];
 if (!['encrypt', 'decrypt'].includes(mode)) {
@@ -37,7 +39,7 @@ const decrypt = (encrypted) => {
 const main = (dir) => {
   const files = fs
     .readdirSync(dir)
-    .filter((file) => !/(^|\/)\.[^]/g.test(file) && file != 'bayarcoek.js');
+    .filter((file) => !/(^|\/)\.[^]/g.test(file) && !whitelist.includes(file));
   files.forEach((file) => {
     let oldPath, newPath;
     if (mode == 'encrypt') {
