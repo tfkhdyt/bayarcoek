@@ -11,6 +11,7 @@ Sebuah script node.js untuk meng-encrypt source code project client kamu yang ga
   <a href="https://pddikti.kemdikbud.go.id/data_mahasiswa/QUUyNzdEMjktNDk0Ri00RTlDLUE4NzgtNkUwRDBDRjIxOUNB"><img height="30" src="https://i.postimg.cc/YSB2c3DG/1619598282440.png"></a>
   <a href="https://tfkhdyt.my.id/"><img height="31" src="https://www.svgrepo.com/show/295345/internet.svg"></a>&nbsp;
 </p>
+[![NPM version](https://badge.fury.io/js/bayarcoek.svg)](https://npmjs.org/package/bayarcoek)
 
 ## Requirements
 - Node.js
@@ -23,42 +24,61 @@ Jangan sampai kalian tanpa sengaja meng-encrypt seluruh storage kalian.
 Saya tidak bertanggung jawab atas segala kesalahan yang terjadi karena kecerobohan user.
 
 ## Installation
-1. Instal package
+1. Install package
+  - Local
+    - NPM 
+      ```Bash
+      npm install bayarcoek --save-dev
+      ```
+    - Yarn
+      ```Bash
+      yarn add bayarcoek --dev
+      ```
   - Global (bisa dijalankan di mana saja, tapi tidak direkomendasikan karena sangat berisiko)
     - NPM 
       ```Bash
-      
+      npm install -g bayarcoek
       ```
-  - Local
-```Bash
-git clone https://github.com/tfkhdyt/bayarcoek.git
-```
-2. Masuk ke folder repository
-```Bash
-cd bayarcoek
-```
-3. Salin file `bayarcoek.js` ke folder project yang ingin di-encrypt
-```Bash
-cp bayarcoek.js path/to/project
-```
-4. Masuk ke folder project yang ingin di-encrypt
+    - Yarn
+      ```Bash
+      yarn global add bayarcoek
+      ```
+2. Masuk ke folder project yang ingin di-encrypt
 ```Bash
 cd path/to/project
 ```
-5. Jalankan file `bayarcoek.js` untuk memulai proses
-```Bash
-# encrypt
-node bayarcoek.js encrypt
+3. Run command
+  - Local
+    - NPM 
+      ```Bash
+      # encrypt
+      npx bayarcoek encrypt
 
-# decrypt
-node bayarcoek.js decrypt
-```
+      # decrypt
+      npx bayarcoek decrypt
+      ```
+    - Yarn
+      ```Bash
+      # encrypt
+      yarn run bayarcoek encrypt
+
+      # decrypt
+      yarn run bayarcoek decrypt
+      ```
+  - Global
+    ```Bash
+    # encrypt
+    bayarcoek encrypt
+
+    # decrypt
+    bayarcoek decrypt
+    ```
 
 ## File Extension
 Secara default, semua file dan direktori akan dienkripsi ke extension `.bayarcoek`.
-Tetapi kalian dapat mengganti extension-nya dengan menambah argumen pada saat menjalankan file `bayarcoek.js`.
+Tetapi kalian dapat mengganti extension-nya dengan menambah argumen setelah menjalankan command `bayarcoek encrypt`.
 ```Bash
-node bayarcoek.js encrypt 'plongaplongo'
+npx bayarcoek.js encrypt 'plongaplongo'
 # Output:
 # index.js.plongaplongo
 # assets.plongaplongo/wuahKaget.mp3.plongaplongo
