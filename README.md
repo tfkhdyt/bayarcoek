@@ -54,7 +54,7 @@ node encrypt.js 'plongaplongo'
 # assets.plongaplongo/wuahKaget.mp3.plongaplongo
 ```
 
-## Support
+# Support
 Klik tombol di bawah untuk mendukung saya lewat donasi
 
 <p align="center">
@@ -63,7 +63,7 @@ Klik tombol di bawah untuk mendukung saya lewat donasi
   </a>
 </p>
 
-## Informasi lebih lanjut
+# Informasi lebih lanjut
 Apabila ada yang mau ditanyakan soal skrip ini, bisa langsung pm saya:
 <p align=center>
 <a href="https://linktr.ee/tfkhdyt" target="_blank"><img src="https://img.shields.io/badge/Contact-me-green?style=for-the-badge"/></a>
