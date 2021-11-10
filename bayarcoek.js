@@ -9,7 +9,7 @@ key = crypto
   .update(String(key))
   .digest('base64')
   .substr(0, 32);
-  
+
 const whitelist = ['bayarcoek.js', 'node_modules'];
 
 const mode = process.argv[2];
