@@ -3,6 +3,7 @@ const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
 const chalk = require('chalk');
+const info = require('./package.json');
 
 const algorithm = 'aes-256-ctr';
 let key = process.env.BAYARCOEK_KEY || 'N7wKWb5434FLD';
@@ -14,11 +15,32 @@ key = crypto
 
 const whitelist = ['bayarcoek.js', 'node_modules'];
 
+
+
+if(['-v', '--version'].includes(process.argv[2])) {
+  console.log(`v${info.version}`);
+  process.exit(0);
+}
+
+if(['-h', '--help'].includes(process.argv[2])) {
+  console.log(`${chalk.bold('bayarcoek encryptor')}
+
+${chalk.bold('Usage')}: bayarcoek ${chalk.cyan('<option>')} ${chalk.green('[extension]')}
+
+${chalk.bold('Options')}:
+  encrypt|Encrypt semua file dan folder (kecuali hidden dan node_modules) pada current work directory
+  decrypt|Decrypt semua file dan folder pada current work directory
+  -v, --version|Menampilkan versi
+  -h, --help|Menampilkan bantuan`);
+  process.exit(0);
+}
+
 const mode = process.argv[2];
 if (!['encrypt', 'decrypt'].includes(mode)) {
   console.log(`${mode} apaan bro? Gk paham sy`);
   process.exit(1);
 }
+
 const extension = process.argv[3] || process.env.BAYARCOEK_EXT || 'bayarcoek';
 let count = 0;
 const _path = process.cwd() + '/';
