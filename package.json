@@ -11,5 +11,8 @@
   },
   "bin": {
     "bayarcoek": "./bayarcoek.js"
+  },
+  "dependencies": {
+    "chalk": "^4.1.2"
   }
 }

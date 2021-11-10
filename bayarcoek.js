@@ -2,6 +2,8 @@
 const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
+const chalk = require('chalk');
+
 const algorithm = 'aes-256-ctr';
 let key = process.env.BAYARCOEK_KEY || 'N7wKWb5434FLD';
 key = crypto
@@ -45,10 +47,12 @@ const main = (dir) => {
     if (mode == 'encrypt') {
       oldPath = `${dir}/${file}`;
       newPath = `${oldPath}.${extension}`;
+      console.log(`Encrypting ${chalk.bold.cyan(oldPath.replace(_path, ''))}...`);
     } else if (mode == 'decrypt') {
       oldPath = `${dir}/${file}`;
       newPath =
         path.parse(`${oldPath}`).dir + '/' + path.parse(`${oldPath}`).name;
+      console.log(`Decrypting ${chalk.bold.yellow(oldPath.replace(_path, ''))}...`);
     }
     const item = fs.statSync(oldPath);
     if (item.isDirectory()) {
@@ -63,10 +67,7 @@ const main = (dir) => {
       if (err) return console.err(err);
       fs.unlink(oldPath, () => {
         console.log(
-          `${++count}. ${oldPath.replace(_path, '')} => ${newPath.replace(
-            _path,
-            ''
-          )} (SUCCESS)`
+          `${chalk.green.bold(newPath.replace(_path, ''))} has been ${mode.charAt(0).toUpperCase() + mode.slice(1)}ed!`
         );
       });
       if (item.isDirectory()) main(newPath);
