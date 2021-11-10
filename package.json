@@ -1,0 +1,11 @@
+{
+  "name": "bayarcoek",
+  "version": "1.0.0",
+  "main": "bayarcoek.js",
+  "repository": "git@github.com:tfkhdyt/encrypt.git",
+  "author": "tfkhdyt <ta142fa@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "eslint": "^8.2.0"
+  }
+}
