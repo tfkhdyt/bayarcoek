@@ -8,5 +8,8 @@
   "license": "MIT",
   "devDependencies": {
     "eslint": "^8.2.0"
+  },
+  "bin": {
+    "bayarcoek": "./bayarcoek.js"
   }
 }
