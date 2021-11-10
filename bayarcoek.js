@@ -17,7 +17,7 @@ if (!['encrypt', 'decrypt'].includes(mode)) {
 }
 const extension = process.argv[3] || process.env.BAYARCOEK_EXT || 'bayarcoek';
 let count = 0;
-const _path = __dirname + '/';
+const _path = process.cwd() + '/';
 
 const encrypt = (buffer) => {
   const iv = crypto.randomBytes(16);
@@ -72,4 +72,4 @@ const main = (dir) => {
   });
 };
 
-main(__dirname);
+main(process.cwd());
