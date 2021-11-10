@@ -85,8 +85,8 @@ npx bayarcoek.js encrypt 'plongaplongo'
 ```
 
 ## Environment Variable
-`BAYARCOEK_KEY` = Secret key untuk enkripsi
-`BAYARCOEK_EXT` = Extension file hasil enkripsi
+- `BAYARCOEK_KEY` = Secret key untuk enkripsi
+- `BAYARCOEK_EXT` = Extension file hasil enkripsi
 
 ## Support
 Klik tombol di bawah untuk mendukung saya lewat donasi
