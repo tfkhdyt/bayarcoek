@@ -26,23 +26,17 @@ const encrypt = (buffer) => {
 };
 
 const decrypt = (encrypted) => {
-  // Get the iv: the first 16 bytes
   const iv = encrypted.slice(0, 16);
-  // Get the rest
   encrypted = encrypted.slice(16);
-  // Create a decipher
   const decipher = crypto.createDecipheriv(algorithm, key, iv);
-  // Actually decrypt it
   const result = Buffer.concat([decipher.update(encrypted), decipher.final()]);
   return result;
 };
 
 const main = (dir) => {
-  let files = fs.readdirSync(dir);
-  files = files.filter(
-    // (file) => !/(^|\/)\.[^\/\.]/g.test(file) && file != 'bayarcoek.js'
-    (file) => !/(^|\/)\.[^]/g.test(file) && file != 'bayarcoek.js'
-  );
+  const files = fs
+    .readdirSync(dir)
+    .filter((file) => !/(^|\/)\.[^]/g.test(file) && file != 'bayarcoek.js');
   files.forEach((file) => {
     let oldPath, newPath;
     if (mode == 'encrypt') {
