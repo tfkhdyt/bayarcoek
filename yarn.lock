@@ -78,6 +78,14 @@ balanced-match@^1.0.0:
   resolved "https://registry.yarnpkg.com/balanced-match/-/balanced-match-1.0.2.tgz#e83e3a7e3f300b34cb9d87f615fa0cbf357690ee"
   integrity sha512-3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw==
 
+bayarcoek@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/bayarcoek/-/bayarcoek-2.0.0.tgz#7d42aabc9c07c634f607b4bbb9e7d9a14f0caf0a"
+  integrity sha512-zVDFoeMMbiwqppZb/VfSK6Eo/qqbycuuxLpTsFoEKL+AIR34rvvoo8uD1KXCZbHGxQ8llapJ/o2HKzNlUe0oYQ==
+  dependencies:
+    chalk "^4.1.2"
+    commander "^8.3.0"
+
 brace-expansion@^1.1.7:
   version "1.1.11"
   resolved "https://registry.yarnpkg.com/brace-expansion/-/brace-expansion-1.1.11.tgz#3c7fcbf529d87226f3d2f52b966ff5271eb441dd"
