@@ -10,12 +10,12 @@ key = crypto
   .digest('base64')
   .substr(0, 32);
 
-const mode = process.argv[1];
+const mode = process.argv[2];
 if (!['encrypt', 'decrypt'].includes(mode)) {
   console.log(`${mode} apaan bro? Gk paham sy`);
   process.exit(1);
 }
-const extension = process.argv[2] || process.env.BAYARCOEK_EXT || 'bayarcoek';
+const extension = process.argv[3] || process.env.BAYARCOEK_EXT || 'bayarcoek';
 let count = 0;
 const _path = __dirname + '/';
 
