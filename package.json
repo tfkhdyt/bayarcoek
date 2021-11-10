@@ -1,6 +1,6 @@
 {
   "name": "bayarcoek",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Sebuah script node.js untuk meng-encrypt source code project client kamu yang gak mau bayar",
   "main": "bayarcoek.js",
   "repository": "git@github.com:tfkhdyt/bayarcoek.git",
