@@ -27,30 +27,32 @@ Saya tidak bertanggung jawab atas segala kesalahan yang terjadi karena keceroboh
 1. Install package
   - Local
     - NPM 
-      ```Bash
+      ```bash
       npm install bayarcoek --save-dev
       ```
     - Yarn
-      ```Bash
+      ```bash
       yarn add bayarcoek --dev
       ```
   - Global (bisa dijalankan di mana saja, tapi tidak direkomendasikan karena sangat berisiko)
     - NPM 
-      ```Bash
+      ```bash
       npm install -g bayarcoek
       ```
     - Yarn
-      ```Bash
+      ```bash
       yarn global add bayarcoek
       ```
-2. Masuk ke folder project yang ingin di-encrypt
-```Bash
-cd path/to/project
-```
-3. Run command
+
+## Usage
+1. Masuk ke folder project yang ingin di-encrypt
+  ```bash
+  cd path/to/project
+  ```
+2. Run command
   - Local
     - NPM 
-      ```Bash
+      ```bash
       # encrypt
       npx bayarcoek encrypt
 
@@ -58,7 +60,7 @@ cd path/to/project
       npx bayarcoek decrypt
       ```
     - Yarn
-      ```Bash
+      ```bash
       # encrypt
       yarn run bayarcoek encrypt
 
@@ -66,7 +68,7 @@ cd path/to/project
       yarn run bayarcoek decrypt
       ```
   - Global
-    ```Bash
+    ```bash
     # encrypt
     bayarcoek encrypt
 
@@ -74,14 +76,35 @@ cd path/to/project
     bayarcoek decrypt
     ```
 
-## File Extension
-Secara default, semua file dan direktori akan dienkripsi ke extension `.bayarcoek`.
-Tetapi kalian dapat mengganti extension-nya dengan menambah argumen setelah menjalankan command `bayarcoek encrypt`.
-```Bash
-npx bayarcoek.js encrypt 'plongaplongo'
-# Output:
-# index.js.plongaplongo
-# assets.plongaplongo/wuahKaget.mp3.plongaplongo
+## Advanced Usage
+### Meng-encrypt satu file (atau lebih)
+```bash
+npx bayarcoek encrypt [nama_file_1] [nama_file_2] [dst]
+```
+
+### Mengubah extension
+```bash
+npx bayarcoek encrypt [nama_file] -x plongaplongo
+```
+
+### Mengubah secret key
+```bash
+npx bayarcoek encrypt [nama_file] -k awokawokawok
+```
+
+### Mendekripsi satu file (atau lebih)
+```bash
+npx bayarcoek decrypt [nama_file_1] [nama_file_2] [dst]
+```
+
+### Menampilkan menu bantuan
+```bash
+npx bayarcoek -h
+```
+
+### Menampilkan nomor versi
+```bash
+npx bayarcoek -v
 ```
 
 ## Environment Variable
