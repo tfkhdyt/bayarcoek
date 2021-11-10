@@ -9,9 +9,9 @@ Sebuah script node.js untuk meng-encrypt source code project client kamu yang ga
   <a href="https://t.me/tfkhdyt"><img height="30" src="https://upload.wikimedia.org/wikipedia/commons/8/83/Telegram_2019_Logo.svg"></a>&nbsp;
   <a href="https://www.linkedin.com/mwlite/in/taufik-hidayat-6793aa200"><img height="30" src="https://upload.wikimedia.org/wikipedia/commons/8/81/LinkedIn_icon.svg"></a>
   <a href="https://pddikti.kemdikbud.go.id/data_mahasiswa/QUUyNzdEMjktNDk0Ri00RTlDLUE4NzgtNkUwRDBDRjIxOUNB"><img height="30" src="https://i.postimg.cc/YSB2c3DG/1619598282440.png"></a>
-  <a href="https://tfkhdyt.my.id/"><img height="31" src="https://www.svgrepo.com/show/295345/internet.svg"></a>&nbsp;
+  <a href="https://tfkhdyt.my.id/"><img height="31" src="https://www.svgrepo.com/show/295345/internet.svg"></a>&nbsp; <br><br>
+  <a href="https://www.npmjs.com/package/bayarcoek"><img src="https://badge.fury.io/js/bayarcoek.svg" alt="NPM Version"/><a>
 </p>
-[![NPM version](https://badge.fury.io/js/bayarcoek.svg)](https://npmjs.org/package/bayarcoek)
 
 ## Requirements
 - Node.js
