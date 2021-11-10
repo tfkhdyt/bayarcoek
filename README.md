@@ -18,9 +18,12 @@ Sebuah script node.js untuk meng-"encrypt" source code project client kamu yang 
 
 # Warning
 Gunakan script ini dengan hati-hati.
-Secara default, script ini akan meng-encrypt semua file yang berada dalam satu folder dengan file `encrypt.js`.
+Secara default, script ini akan meng-encrypt semua file dan folder yang berada dalam satu folder dengan file `encrypt.js`.
 Jangan sampai kalian tanpa sengaja meng-encrypt seluruh storage kalian.
 Saya tidak bertanggung jawab atas segala kesalahan yang terjadi karena kecerobohan user.
+
+# Disclaimer
+Script ini hanya meng-rename semua file dan direktori, tidak benar-benar melakukan enkripsi layaknya ransomware
 
 # Installation
 1. Clone repository ini
