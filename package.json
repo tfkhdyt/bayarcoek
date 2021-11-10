@@ -2,7 +2,7 @@
   "name": "bayarcoek",
   "version": "1.1.0",
   "description": "Sebuah script node.js untuk meng-encrypt source code project client kamu yang gak mau bayar",
-  "main": "bayarcoek.js",
+  "main": "./bin/bayarcoek.js",
   "repository": "git@github.com:tfkhdyt/bayarcoek.git",
   "author": "tfkhdyt <tfkhdyt@pm.me>",
   "license": "MIT",
@@ -10,7 +10,7 @@
     "eslint": "^8.2.0"
   },
   "bin": {
-    "bayarcoek": "./bayarcoek.js"
+    "bayarcoek": "./bin/bayarcoek.js"
   },
   "dependencies": {
     "chalk": "^4.1.2",
