@@ -85,26 +85,36 @@ npx bayarcoek encrypt [nama_file_1] [nama_file_2] [dst]
 ### Mengubah extension
 ```bash
 npx bayarcoek encrypt [nama_file] -x plongaplongo
+# npx bayarcoek encrypt [nama_file] --extension plongaplongo
 ```
 
 ### Mengubah secret key
 ```bash
 npx bayarcoek encrypt [nama_file] -k awokawokawok
+# npx bayarcoek encrypt [nama_file] --secret-key awokawokawok
 ```
 
-### Mendekripsi satu file (atau lebih)
+### Men-decrypt satu file (atau lebih)
 ```bash
 npx bayarcoek decrypt [nama_file_1] [nama_file_2] [dst]
+```
+
+### Men-decrypt satu file dan timpa (file yang encrypted secara otomatis terhapus setelah di-decrypt)
+```bash
+npx bayarcoek decrypt [nama_file_1] -o
+# npx bayarcoek decrypt [nama_file_1] --overwrite
 ```
 
 ### Menampilkan menu bantuan
 ```bash
 npx bayarcoek -h
+# npx bayarcoek --help
 ```
 
 ### Menampilkan nomor versi
 ```bash
 npx bayarcoek -v
+# npx bayarcoek --version
 ```
 
 ## Environment Variable
