@@ -48,10 +48,7 @@ program
     'Secret key untuk enkripsi dan dekripsi',
     'N7wKWb5434FLD'
   )
-  .option(
-    '-o, --overwrite',
-    'Timpa file hasil decrypt'
-  )
+  .option('-o, --overwrite', 'Timpa file hasil decrypt')
   .action((path, options) => {
     if (path.length == 0) path.push('');
     path.forEach((p) => {
