@@ -5,9 +5,8 @@
   "main": "./bin/bayarcoek.js",
   "repository": "git@github.com:tfkhdyt/bayarcoek.git",
   "author": "tfkhdyt <tfkhdyt@pm.me>",
-  "license": "MIT",
+  "license": "GPLv3",
   "devDependencies": {
-    "bayarcoek": "^2.0.0",
     "eslint": "^8.2.0"
   },
   "bin": {
