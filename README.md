@@ -1,5 +1,5 @@
 ## bayarcoek encryptor
-Sebuah script node.js untuk meng-encrypt source code project client kamu yang gak mau bayar
+Sebuah script node.js untuk meng-encrypt source code project client kamu yang gak mau bayar. Terinspirasi oleh [SnowFag](https://github.com/py7hon)
 
 <p align=center>
   <a href="https://facebook.com/tfkhdyt142"><img height="30" src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg"></a>&nbsp;
