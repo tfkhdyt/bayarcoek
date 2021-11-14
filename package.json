@@ -5,7 +5,7 @@
   "main": "./bin/bayarcoek.js",
   "repository": "git@github.com:tfkhdyt/bayarcoek.git",
   "author": "tfkhdyt <tfkhdyt@pm.me>",
-  "license": "GPLv3",
+  "license": "GPL-3.0-only",
   "devDependencies": {
     "eslint": "^8.2.0"
   },
@@ -14,6 +14,7 @@
   },
   "dependencies": {
     "chalk": "^4.1.2",
+    "cli-progress": "^3.9.1",
     "commander": "^8.3.0"
   },
   "keywords": [
