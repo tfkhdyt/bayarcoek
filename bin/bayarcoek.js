@@ -32,7 +32,6 @@ program
     'N7wKWb5434FLD'
   )
   .action((path, options) => {
-    // encrypt(path);
     if (path.length == 0) path.push('');
     const numberOfFiles = path.length;
     path.forEach((p) => {
