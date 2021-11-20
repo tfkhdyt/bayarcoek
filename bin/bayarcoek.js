@@ -33,9 +33,8 @@ program
   )
   .action((path, options) => {
     if (path.length == 0) path.push('');
-    const numberOfFiles = path.length;
     path.forEach((p) => {
-      encrypt(p, options.extension, options.secretKey, numberOfFiles);
+      encrypt(p, options.extension, options.secretKey);
     });
   });
 
@@ -51,9 +50,8 @@ program
   .option('-o, --overwrite', 'Timpa file hasil decrypt')
   .action((path, options) => {
     if (path.length == 0) path.push('');
-    const numberOfFiles = path.length;
     path.forEach((p) => {
-      decrypt(p, options.secretKey, options.overwrite, numberOfFiles);
+      decrypt(p, options.secretKey, options.overwrite);
     });
   });
 
