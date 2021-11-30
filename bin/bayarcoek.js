@@ -1,12 +1,12 @@
 #!/usr/bin/env node
 // modules
-const { Command } = require('commander');
-const program = new Command();
+const { Command } = require('commander')
+const program = new Command()
 
 // imported files
-const info = require('../package.json');
-const encrypt = require('../lib/utils/encrypt');
-const decrypt = require('../lib/utils/decrypt');
+const info = require('../package.json')
+const encrypt = require('../lib/utils/encrypt')
+const decrypt = require('../lib/utils/decrypt')
 
 // program information
 program
@@ -14,7 +14,7 @@ program
   .usage('<command> [options]')
   .version(info.version, '-v, --version', 'Menampilkan versi')
   .showSuggestionAfterError()
-  .helpOption('-h, --help', 'Menampilkan bantuan');
+  .helpOption('-h, --help', 'Menampilkan bantuan')
 
 // command
 // encrypt
@@ -32,11 +32,11 @@ program
     'N7wKWb5434FLD'
   )
   .action((path, options) => {
-    if (path.length == 0) path.push('');
+    if (path.length === 0) path.push('')
     path.forEach((p) => {
-      encrypt(p, options.extension, options.secretKey);
-    });
-  });
+      encrypt(p, options.extension, options.secretKey)
+    })
+  })
 
 // decrypt
 program
@@ -49,11 +49,11 @@ program
   )
   .option('-o, --overwrite', 'Timpa file hasil decrypt')
   .action((path, options) => {
-    if (path.length == 0) path.push('');
+    if (path.length === 0) path.push('')
     path.forEach((p) => {
-      decrypt(p, options.secretKey, options.overwrite);
-    });
-  });
+      decrypt(p, options.secretKey, options.overwrite)
+    })
+  })
 
 // option
-program.parse();
+program.parse()
