@@ -118,7 +118,7 @@ export default async function decrypt(
       readStream
         .pipe(decipher)
         .pipe(unzip)
-        .on("error", (err: Error) => {
+        .on("error", () => {
           logger.error(
             "Decryption failed - you may be using an incorrect secret key"
           );
