@@ -1,20 +1,36 @@
 {
   "name": "bayarcoek",
-  "version": "3.2.1",
+  "version": "4.0.0",
+  "type": "module",
   "description": "Sebuah script node.js untuk meng-encrypt source code project client kamu yang gak mau bayar",
-  "main": "./bin/bayarcoek.js",
+  "main": "./dist/lib/utils/encrypt.js",
   "repository": "git@github.com:tfkhdyt/bayarcoek.git",
   "author": "tfkhdyt <tfkhdyt@pm.me>",
   "license": "GPL-3.0-only",
+  "scripts": {
+    "build": "tsc",
+    "test": "vitest",
+    "lint": "eslint . --ext .ts,.js",
+    "lint:fix": "eslint . --ext .ts,.js --fix",
+    "prepublishOnly": "npm run build"
+  },
   "devDependencies": {
-    "eslint": "^8.2.0"
+    "@types/cli-progress": "^3.11.6",
+    "@types/node": "^20.0.0",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    "eslint": "^8.2.0",
+    "typescript": "^5.0.0",
+    "vitest": "^1.0.4"
   },
   "bin": {
-    "bayarcoek": "./bin/bayarcoek.js"
+    "bayarcoek": "./dist/bin/bayarcoek.js"
   },
   "dependencies": {
     "chalk": "^4.1.2",
-    "commander": "^8.3.0"
+    "cli-progress": "^3.12.0",
+    "commander": "^8.3.0",
+    "ignore": "^5.3.0"
   },
   "keywords": [
     "bayarcoek",

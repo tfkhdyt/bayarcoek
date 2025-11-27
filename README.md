@@ -17,8 +17,8 @@ Sebuah script node.js untuk meng-encrypt source code project client kamu yang ga
 
 ## Requirements
 
-- Node.js
-- NPM / Yarn
+- Node.js (v14 or higher)
+- NPM / Yarn / pnpm
 
 ## Warning
 
@@ -40,6 +40,10 @@ Saya tidak bertanggung jawab atas segala kesalahan yang terjadi karena keceroboh
     ```bash
     yarn add bayarcoek --dev
     ```
+  - pnpm
+    ```bash
+    pnpm add -D bayarcoek
+    ```
 - Global (bisa dijalankan di mana saja, tapi tidak direkomendasikan karena sangat berisiko)
   - NPM
     ```bash
@@ -48,6 +52,10 @@ Saya tidak bertanggung jawab atas segala kesalahan yang terjadi karena keceroboh
   - Yarn
     ```bash
     yarn global add bayarcoek
+    ```
+  - pnpm
+    ```bash
+    pnpm add -g bayarcoek
     ```
 
 ## Usage
@@ -80,6 +88,16 @@ cd path/to/project
 
     # decrypt
     yarn run bayarcoek decrypt
+    ```
+
+  - pnpm
+
+    ```bash
+    # encrypt
+    pnpm exec bayarcoek encrypt
+
+    # decrypt
+    pnpm exec bayarcoek decrypt
     ```
 
 - Global
@@ -141,6 +159,56 @@ npx bayarcoek -v
 # npx bayarcoek --version
 ```
 
+## New Features (v3.3+)
+
+### Dry Run Mode
+
+Preview operasi tanpa benar-benar mengeksekusinya:
+
+```bash
+npx bayarcoek encrypt --dry-run
+npx bayarcoek decrypt --dry-run
+```
+
+### Verbose Output
+
+Tampilkan informasi detail tentang operasi:
+
+```bash
+npx bayarcoek encrypt -v
+# npx bayarcoek encrypt --verbose
+```
+
+### Quiet Mode
+
+Supresi semua output kecuali error:
+
+```bash
+npx bayarcoek encrypt -q
+# npx bayarcoek encrypt --quiet
+```
+
+### Backup Files
+
+Buat backup sebelum enkripsi/dekripsi:
+
+```bash
+npx bayarcoek encrypt -b
+# npx bayarcoek encrypt --backup
+```
+
+### Logging
+
+Simpan hasil operasi ke file log:
+
+```bash
+npx bayarcoek encrypt --log-file ./bayarcoek.log
+```
+
+### Gitignore Support
+
+Bayarcoek secara otomatis menghormati file `.gitignore` di root direktori project.
+
 ## Environment Variable
 
 - `BAYARCOEK_KEY` = Secret key untuk enkripsi
@@ -155,6 +223,48 @@ Klik tombol di bawah untuk mendukung saya lewat donasi
     <img src="https://i.postimg.cc/jjRDbZQx/1621036430601.png" width="125px">
   </a>
 </p>
+
+## Testing
+
+Jalankan test suite dengan:
+
+```bash
+npm test
+# atau
+pnpm test
+```
+
+Dengan UI:
+
+```bash
+npm run test:ui
+# atau
+pnpm test:ui
+```
+
+## Linting
+
+Periksa kualitas kode:
+
+```bash
+npm run lint
+# Perbaiki otomatis:
+npm run lint:fix
+```
+
+## Troubleshooting
+
+### "Decryption failed - you may be using an incorrect secret key"
+
+Ini berarti secret key yang Anda gunakan untuk dekripsi tidak sesuai dengan yang digunakan untuk enkripsi. Pastikan Anda menggunakan secret key yang benar atau set environment variable `BAYARCOEK_KEY`.
+
+### "Permission denied"
+
+Jalankan dengan privilege yang sesuai atau pastikan Anda memiliki akses tulis ke direktori yang akan dienkripsi/dekripsi.
+
+### "File not found"
+
+Pastikan path file atau direktori yang Anda berikan sudah benar dan file/direktori tersebut ada.
 
 ## Informasi lebih lanjut
 
