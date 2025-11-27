@@ -29,23 +29,20 @@ export interface DecryptOptions {
 /**
  * Decrypt files or directories
  */
-export default function decrypt(
+export default async function decrypt(
   _path: string,
   secretKey: string,
   overwrite: boolean,
   options: DecryptOptions = {}
-): void {
+) {
   const logger = new Logger({
     verbose: options.verbose,
     quiet: options.quiet,
     logFile: options.logFile,
   });
 
-  let key = process.env.BAYARCOEK_KEY || secretKey;
-  key = createHash("sha256")
-    .update(String(key))
-    .digest("base64")
-    .substring(0, 32);
+  const key = process.env.BAYARCOEK_KEY || secretKey;
+  const keyBuffer = createHash("sha256").update(String(key)).digest();
 
   const decryptFile = async (file: string): Promise<void> => {
     if (options.dryRun) {
@@ -87,63 +84,71 @@ export default function decrypt(
       }
     }
 
-    const readStream = createReadStream(file, {
-      start: 16,
-    });
-    const decipher = createDecipheriv(algorithm, Buffer.from(key), initVect);
-    const unzip = createUnzip();
-    const outputPath = parse(file).dir + "/" + parse(file).name;
-    const writeStream = createWriteStream(outputPath);
+    return new Promise<void>((resolve, reject) => {
+      const readStream = createReadStream(file, {
+        start: 16,
+      });
+      const decipher = createDecipheriv(algorithm, keyBuffer, initVect);
+      const unzip = createUnzip();
+      const outputPath = parse(file).dir + "/" + parse(file).name;
+      const writeStream = createWriteStream(outputPath);
 
-    readStream.on("error", (err: Error) => {
-      logger.error("Failed to read encrypted file");
-      logger.error(err.message);
-      try {
-        unlinkSync(outputPath);
-      } catch (e) {
-        // Ignore if file doesn't exist
-      }
-    });
-
-    writeStream.on("error", (err: Error) => {
-      logger.error("Failed to write decrypted file");
-      logger.error(err.message);
-      try {
-        unlinkSync(outputPath);
-      } catch (e) {
-        // Ignore if file doesn't exist
-      }
-    });
-
-    readStream
-      .pipe(decipher)
-      .pipe(unzip)
-      .on("error", () => {
-        logger.error(
-          "Decryption failed - you may be using an incorrect secret key"
-        );
+      readStream.on("error", (err: Error) => {
+        logger.error("Failed to read encrypted file");
+        logger.error(err.message);
         try {
           unlinkSync(outputPath);
         } catch (e) {
           // Ignore if file doesn't exist
         }
-      })
-      .pipe(writeStream);
+        reject(err);
+      });
 
-    writeStream.on("finish", () => {
-      const stat = statSync(file);
-      logger.trackFile(stat.size);
-      if (overwrite) {
-        unlink(file, (err: NodeJS.ErrnoException | null) => {
-          if (err) {
-            logger.warn(`Failed to delete encrypted file: ${err.message}`);
-          } else {
-            logger.success(`${parse(file).base} has been Decrypted!`);
+      writeStream.on("error", (err: Error) => {
+        logger.error("Failed to write decrypted file");
+        logger.error(err.message);
+        try {
+          unlinkSync(outputPath);
+        } catch (e) {
+          // Ignore if file doesn't exist
+        }
+        reject(err);
+      });
+
+      readStream
+        .pipe(decipher)
+        .pipe(unzip)
+        .on("error", (err: Error) => {
+          logger.error(
+            "Decryption failed - you may be using an incorrect secret key"
+          );
+          try {
+            unlinkSync(outputPath);
+          } catch (e) {
+            // Ignore if file doesn't exist
           }
-        });
-      } else {
-        logger.success(`${parse(file).base} has been Decrypted!`);
-      }
+          // Resolve instead of reject to handle wrong key gracefully
+          resolve();
+        })
+        .pipe(writeStream);
+
+      writeStream.on("finish", () => {
+        const stat = statSync(file);
+        logger.trackFile(stat.size);
+        if (overwrite) {
+          unlink(file, (err: NodeJS.ErrnoException | null) => {
+            if (err) {
+              logger.warn(`Failed to delete encrypted file: ${err.message}`);
+            } else {
+              logger.success(`${parse(file).base} has been Decrypted!`);
+            }
+            resolve();
+          });
+        } else {
+          logger.success(`${parse(file).base} has been Decrypted!`);
+          resolve();
+        }
+      });
     });
   };
 
@@ -181,7 +186,8 @@ export default function decrypt(
             } else {
               logger.info(`[DRY RUN] Would rename: ${oldPath} -> ${newPath}`);
             }
-            return main(newPath);
+            await main(newPath);
+            continue;
           }
           await decryptFile(oldPath);
         }
@@ -197,14 +203,10 @@ export default function decrypt(
     }
   };
 
-  main(join(process.cwd(), _path));
+  await main(join(process.cwd(), _path));
 
   // Log summary if not in quiet mode
-  if (!options.quiet) {
-    setTimeout(() => {
-      if (options.verbose) {
-        logger.logSummary();
-      }
-    }, 100);
+  if (!options.quiet && options.verbose) {
+    logger.logSummary();
   }
 }

@@ -52,176 +52,65 @@ describe("decrypt", () => {
     }
   });
 
-  it("should decrypt an encrypted file back to original content", () => {
-    return new Promise<void>((resolve, reject) => {
-      const testFile = getTestFile("decrypt-basic");
-      // Create test file
-      writeFileSync(testFile, testContent);
+  it("should decrypt an encrypted file back to original content", async () => {
+    const testFile = getTestFile("decrypt-basic");
+    // Create test file
+    writeFileSync(testFile, testContent);
 
-      // Encrypt it
-      encrypt(testFile, "bayarcoek", secretKey);
+    // Encrypt it
+    await encrypt(testFile, "bayarcoek", secretKey);
 
-      const encryptedFile = testFile + ".bayarcoek";
+    const encryptedFile = testFile + ".bayarcoek";
+    expect(existsSync(encryptedFile)).toBe(true);
 
-      // Poll for encrypted file to exist (encryption is async)
-      const waitForEncryption = setInterval(() => {
-        if (existsSync(encryptedFile)) {
-          clearInterval(waitForEncryption);
+    // Decrypt it
+    await decrypt(encryptedFile, secretKey, false);
 
-          // Decrypt it
-          decrypt(encryptedFile, secretKey, false);
-
-          // Poll for decrypted file to exist (decryption is async)
-          const waitForDecryption = setInterval(() => {
-            if (existsSync(testFile)) {
-              clearInterval(waitForDecryption);
-              try {
-                const decryptedContent = readFileSync(testFile, "utf-8");
-                expect(decryptedContent).toBe(testContent);
-                resolve();
-              } catch (err) {
-                reject(err);
-              }
-            }
-          }, 100);
-
-          // Timeout for decryption
-          setTimeout(() => {
-            clearInterval(waitForDecryption);
-            reject(
-              new Error("Decryption timed out - decrypted file not found")
-            );
-          }, 3000);
-        }
-      }, 100);
-
-      // Timeout for encryption
-      setTimeout(() => {
-        clearInterval(waitForEncryption);
-        reject(new Error("Encryption timed out - encrypted file not found"));
-      }, 3000);
-    });
+    expect(existsSync(testFile)).toBe(true);
+    const decryptedContent = readFileSync(testFile, "utf-8");
+    expect(decryptedContent).toBe(testContent);
   });
 
-  it("should keep encrypted file when overwrite is false", () => {
-    return new Promise<void>((resolve, reject) => {
-      const testFile = getTestFile("keep-encrypted");
-      writeFileSync(testFile, testContent);
-      encrypt(testFile, "bayarcoek", secretKey);
+  it("should keep encrypted file when overwrite is false", async () => {
+    const testFile = getTestFile("keep-encrypted");
+    writeFileSync(testFile, testContent);
+    await encrypt(testFile, "bayarcoek", secretKey);
 
-      const encryptedFile = testFile + ".bayarcoek";
+    const encryptedFile = testFile + ".bayarcoek";
+    expect(existsSync(encryptedFile)).toBe(true);
 
-      const waitForEncryption = setInterval(() => {
-        if (existsSync(encryptedFile)) {
-          clearInterval(waitForEncryption);
-          decrypt(encryptedFile, secretKey, false);
+    await decrypt(encryptedFile, secretKey, false);
 
-          const waitForDecryption = setInterval(() => {
-            if (existsSync(testFile)) {
-              clearInterval(waitForDecryption);
-              try {
-                expect(existsSync(encryptedFile)).toBe(true);
-                resolve();
-              } catch (err) {
-                reject(err);
-              }
-            }
-          }, 100);
-
-          setTimeout(() => {
-            clearInterval(waitForDecryption);
-            reject(new Error("Decryption timed out"));
-          }, 3000);
-        }
-      }, 100);
-
-      setTimeout(() => {
-        clearInterval(waitForEncryption);
-        reject(new Error("Encryption timed out"));
-      }, 3000);
-    });
+    expect(existsSync(testFile)).toBe(true);
+    expect(existsSync(encryptedFile)).toBe(true);
   });
 
-  it("should delete encrypted file when overwrite is true", () => {
-    return new Promise<void>((resolve, reject) => {
-      const testFile = getTestFile("delete-encrypted");
-      writeFileSync(testFile, testContent);
-      encrypt(testFile, "bayarcoek", secretKey);
+  it("should delete encrypted file when overwrite is true", async () => {
+    const testFile = getTestFile("delete-encrypted");
+    writeFileSync(testFile, testContent);
+    await encrypt(testFile, "bayarcoek", secretKey);
 
-      const encryptedFile = testFile + ".bayarcoek";
+    const encryptedFile = testFile + ".bayarcoek";
+    expect(existsSync(encryptedFile)).toBe(true);
 
-      const waitForEncryption = setInterval(() => {
-        if (existsSync(encryptedFile)) {
-          clearInterval(waitForEncryption);
-          decrypt(encryptedFile, secretKey, true);
+    await decrypt(encryptedFile, secretKey, true);
 
-          const waitForDecryption = setInterval(() => {
-            if (existsSync(testFile)) {
-              clearInterval(waitForDecryption);
-              // Wait a bit more for the encrypted file deletion
-              setTimeout(() => {
-                try {
-                  expect(existsSync(encryptedFile)).toBe(false);
-                  expect(existsSync(testFile)).toBe(true);
-                  resolve();
-                } catch (err) {
-                  reject(err);
-                }
-              }, 200);
-            }
-          }, 100);
-
-          setTimeout(() => {
-            clearInterval(waitForDecryption);
-            reject(new Error("Decryption timed out"));
-          }, 3000);
-        }
-      }, 100);
-
-      setTimeout(() => {
-        clearInterval(waitForEncryption);
-        reject(new Error("Encryption timed out"));
-      }, 3000);
-    });
+    expect(existsSync(testFile)).toBe(true);
+    expect(existsSync(encryptedFile)).toBe(false);
   });
 
-  it("should handle wrong secret key gracefully", () => {
-    return new Promise<void>((resolve, reject) => {
-      const testFile = getTestFile("wrong-key");
-      writeFileSync(testFile, testContent);
-      encrypt(testFile, "bayarcoek", secretKey);
+  it("should handle wrong secret key gracefully", async () => {
+    const testFile = getTestFile("wrong-key");
+    writeFileSync(testFile, testContent);
+    await encrypt(testFile, "bayarcoek", secretKey);
 
-      const encryptedFile = testFile + ".bayarcoek";
+    const encryptedFile = testFile + ".bayarcoek";
+    expect(existsSync(encryptedFile)).toBe(true);
 
-      const waitForEncryption = setInterval(() => {
-        if (existsSync(encryptedFile)) {
-          clearInterval(waitForEncryption);
-          // Try to decrypt with wrong key - this should fail silently
-          decrypt(encryptedFile, "wrong-key", false);
+    // Try to decrypt with wrong key - this should fail silently
+    await decrypt(encryptedFile, "wrong-key", false);
 
-          // Wait for decryption attempt to complete (it should fail)
-          setTimeout(() => {
-            try {
-              // The decrypted file should not match the original content
-              // or may not exist at all due to decryption failure
-              if (existsSync(testFile)) {
-                const content = readFileSync(testFile, "utf-8");
-                // If file exists, content should not match (corrupted due to wrong key)
-                expect(content).not.toBe(testContent);
-              }
-              // Either way, the test passes - wrong key should fail gracefully
-              resolve();
-            } catch (err) {
-              reject(err);
-            }
-          }, 1500);
-        }
-      }, 100);
-
-      setTimeout(() => {
-        clearInterval(waitForEncryption);
-        reject(new Error("Encryption timed out"));
-      }, 3000);
-    });
+    // When decryption fails with wrong key, the original file should not be recreated
+    expect(existsSync(testFile)).toBe(false);
   });
 });

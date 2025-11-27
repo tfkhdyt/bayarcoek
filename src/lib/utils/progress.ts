@@ -1,5 +1,5 @@
 import cliProgress from "cli-progress";
-import { readdirSync, statSync } from "fs";
+import { readdirSync, lstatSync } from "fs";
 import { join } from "path";
 
 /**
@@ -24,17 +24,34 @@ export function createProgressBar(
  */
 export function countFilesInDirectory(dir: string): number {
   let count = 0;
-  const items = readdirSync(dir);
 
-  for (const item of items) {
-    const itemPath = join(dir, item);
-    const stat = statSync(itemPath);
+  try {
+    const items = readdirSync(dir);
 
-    if (stat.isDirectory()) {
-      count += countFilesInDirectory(itemPath);
-    } else {
-      count++;
+    for (const item of items) {
+      const itemPath = join(dir, item);
+
+      try {
+        const stat = lstatSync(itemPath);
+
+        // Skip symlinks to avoid infinite recursion
+        if (stat.isSymbolicLink()) {
+          continue;
+        }
+
+        if (stat.isDirectory()) {
+          count += countFilesInDirectory(itemPath);
+        } else {
+          count++;
+        }
+      } catch (error) {
+        // Skip items that cannot be accessed
+        continue;
+      }
     }
+  } catch (error) {
+    // Return 0 if the directory cannot be read
+    return 0;
   }
 
   return count;

@@ -44,108 +44,51 @@ describe("encrypt", () => {
     }
   });
 
-  it("should create an encrypted file with correct extension", () => {
-    return new Promise<void>((resolve, reject) => {
-      const testFile = getTestFile("create-encrypted");
-      writeFileSync(testFile, testContent);
+  it("should create an encrypted file with correct extension", async () => {
+    const testFile = getTestFile("create-encrypted");
+    writeFileSync(testFile, testContent);
 
-      const ext = "bayarcoek";
-      encrypt(testFile, ext, "test-key");
+    const ext = "bayarcoek";
+    await encrypt(testFile, ext, "test-key");
 
-      const encryptedFile = testFile + "." + ext;
-
-      // Poll for encrypted file to exist
-      const waitForEncryption = setInterval(() => {
-        if (existsSync(encryptedFile)) {
-          clearInterval(waitForEncryption);
-          resolve();
-        }
-      }, 100);
-
-      setTimeout(() => {
-        clearInterval(waitForEncryption);
-        reject(new Error("Encryption timed out - encrypted file not found"));
-      }, 3000);
-    });
+    const encryptedFile = testFile + "." + ext;
+    expect(existsSync(encryptedFile)).toBe(true);
   });
 
-  it("should remove original file after encryption", () => {
-    return new Promise<void>((resolve, reject) => {
-      const testFile = getTestFile("remove-original");
-      writeFileSync(testFile, testContent);
+  it("should remove original file after encryption", async () => {
+    const testFile = getTestFile("remove-original");
+    writeFileSync(testFile, testContent);
 
-      const ext = "bayarcoek";
-      encrypt(testFile, ext, "test-key");
+    const ext = "bayarcoek";
+    await encrypt(testFile, ext, "test-key");
 
-      const encryptedFile = testFile + "." + ext;
-
-      // Poll for encrypted file and original file removal
-      const waitForEncryption = setInterval(() => {
-        if (existsSync(encryptedFile) && !existsSync(testFile)) {
-          clearInterval(waitForEncryption);
-          resolve();
-        }
-      }, 100);
-
-      setTimeout(() => {
-        clearInterval(waitForEncryption);
-        reject(new Error("Encryption timed out or original file not removed"));
-      }, 3000);
-    });
+    const encryptedFile = testFile + "." + ext;
+    expect(existsSync(encryptedFile)).toBe(true);
+    expect(existsSync(testFile)).toBe(false);
   });
 
-  it("should create encrypted file with custom extension", () => {
-    return new Promise<void>((resolve, reject) => {
-      const testFile = getTestFile("custom-ext");
-      writeFileSync(testFile, testContent);
+  it("should create encrypted file with custom extension", async () => {
+    const testFile = getTestFile("custom-ext");
+    writeFileSync(testFile, testContent);
 
-      const ext = "myenc";
-      encrypt(testFile, ext, "test-key");
+    const ext = "myenc";
+    await encrypt(testFile, ext, "test-key");
 
-      const encryptedFile = testFile + "." + ext;
-
-      const waitForEncryption = setInterval(() => {
-        if (existsSync(encryptedFile)) {
-          clearInterval(waitForEncryption);
-          resolve();
-        }
-      }, 100);
-
-      setTimeout(() => {
-        clearInterval(waitForEncryption);
-        reject(new Error("Encryption timed out"));
-      }, 3000);
-    });
+    const encryptedFile = testFile + "." + ext;
+    expect(existsSync(encryptedFile)).toBe(true);
   });
 
-  it("should prepend IV to encrypted file", () => {
-    return new Promise<void>((resolve, reject) => {
-      const testFile = getTestFile("prepend-iv");
-      writeFileSync(testFile, testContent);
+  it("should prepend IV to encrypted file", async () => {
+    const testFile = getTestFile("prepend-iv");
+    writeFileSync(testFile, testContent);
 
-      const ext = "bayarcoek";
-      encrypt(testFile, ext, "test-key");
+    const ext = "bayarcoek";
+    await encrypt(testFile, ext, "test-key");
 
-      const encryptedFile = testFile + "." + ext;
-
-      const waitForEncryption = setInterval(() => {
-        if (existsSync(encryptedFile)) {
-          clearInterval(waitForEncryption);
-          try {
-            const fileBuffer = readFileSync(encryptedFile);
-            // Encrypted file should be larger than original due to IV and compression overhead
-            expect(fileBuffer.length).toBeGreaterThan(16);
-            resolve();
-          } catch (err) {
-            reject(err);
-          }
-        }
-      }, 100);
-
-      setTimeout(() => {
-        clearInterval(waitForEncryption);
-        reject(new Error("Encryption timed out"));
-      }, 3000);
-    });
+    const encryptedFile = testFile + "." + ext;
+    expect(existsSync(encryptedFile)).toBe(true);
+    const fileBuffer = readFileSync(encryptedFile);
+    // Encrypted file should be larger than original due to IV and compression overhead
+    expect(fileBuffer.length).toBeGreaterThan(16);
   });
 });

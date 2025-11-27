@@ -63,11 +63,11 @@ program
   .option("-q, --quiet", "Supresi output kecuali error")
   .option("--log-file <path>", "Simpan log ke file")
   .option("-b, --backup", "Buat backup sebelum enkripsi")
-  .action((paths: string[], options: EncryptOptions) => {
+  .action(async (paths: string[], options: EncryptOptions) => {
     if (paths.length === 0) paths.push("");
     try {
-      paths.forEach((p: string) => {
-        encrypt(p, options.extension, options.secretKey, {
+      for (const p of paths) {
+        await encrypt(p, options.extension, options.secretKey, {
           dryRun: options.dryRun,
           verbose: options.verbose,
           quiet: options.quiet,
@@ -75,8 +75,12 @@ program
           backup: options.backup,
           customPatterns: options.customPatterns,
         });
-      });
+      }
     } catch (err) {
+      console.error(
+        "Encryption failed:",
+        err instanceof Error ? err.message : err
+      );
       process.exit(1);
     }
   });
